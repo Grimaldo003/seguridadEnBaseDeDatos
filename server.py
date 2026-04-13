@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Request, Query, Depends, HTTPException, status
 from fastapi.responses import PlainTextResponse, JSONResponse, Response, HTMLResponse
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, text
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, Session
 from sqlalchemy import Column, String, Integer
@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# Configuración de la conexión a la base de datos
 CONNECTION_STRING = f"mysql+pymysql://{os.getenv('DB_USER')}:{os.getenv('DB_PASSWORD')}@{os.getenv('DB_HOST')}:3306/{os.getenv('DB_NAME')}"
 
 engine = create_engine(CONNECTION_STRING)
@@ -21,7 +22,7 @@ def retrieve_db():
     db = sessionlocal()
     try:
         yield db
-    except:
+    finally:
         db.close()
 
 class Country(Base):
@@ -45,24 +46,29 @@ app = FastAPI()
 
 @app.get("/countries")
 async def countries(
-    # name: str = Query(None, alias="country.name"),
     db: Session = Depends(retrieve_db)
 ):
-    # CONSULTA
+    # Consulta segura usando el ORM
     countries = db.query(Country).all()
-    return countries#PlainTextResponse(content=name, status_code=200)
+    return countries
 
 
 @app.get("/cities")
 async def cities(
-    # name: str = Query(None, alias="country.name"),
     db: Session = Depends(retrieve_db)
 ):
-    # CONSULTA
+    # Este endpoint fallará en la Actividad 2 (Menor Privilegio) 
+    # si se revoca el permiso SELECT sobre la tabla 'city'.
     cities = db.query(City).all()
-    return cities#PlainTextResponse(content=name, status_code=200)
+    return cities
 
 @app.get("/buscar")
-async def buscar(nombre: str,
-    db: Session = Depends(retrieve_db)):
-    return db.query(Country).filter(Country.name == nombre).all()
+async def buscar(nombre: str, db: Session = Depends(retrieve_db)):
+    # VULNERABLE: Este endpoint es el objetivo de la Actividad 1 (SQL Injection)
+    # Utiliza concatenación directa de strings en lugar de parámetros o el ORM.
+    query = f"SELECT * FROM city WHERE Name = '{nombre}'"
+    
+    # Nota: Se usa text() de SQLAlchemy para permitir la ejecución de strings crudos,
+    # pero la vulnerabilidad persiste por la concatenación de '{nombre}'.
+    resultado = db.execute(text(query))
+    return resultado.mappings().all()
