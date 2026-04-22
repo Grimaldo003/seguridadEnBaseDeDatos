@@ -1,4 +1,5 @@
 Fecha de desarrollo: 22 DE ABRIL DEL 2026
+
 ******* ᓚᘏᗢ *******
 
 DIAGRAMA DE GESTION
