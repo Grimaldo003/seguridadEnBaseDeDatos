@@ -13,7 +13,9 @@ DIAGRAMA DE GESTION
   |- server.py (código de python)
              
   Se encontró posible solución a las vulnerabilidades
+  
   Faltó comprobar que funcionara
+  
   Debido al acceso    
 
 Es es todo✍️
