@@ -4,14 +4,18 @@ Fecha de desarrollo: 22 DE ABRIL DEL 2026
 
 DIAGRAMA DE GESTION
 
-RepositorioOriginal (rtrevinnoc)
+|- RepositorioOriginal (rtrevinnoc)
+  
+|- Fork (Grimaldo003)
+    
+  |- projectServer (Carpeta)
+          
+  |- server.py (código de python)
+             
+  Se encontró posible solución a las vulnerabilidades
+  Faltó comprobar que funcionara
+  Debido al acceso    
 
-  |- Fork (Grimaldo003)
-      |- projectServer (Carpeta)
-          |- server.py (código de python)
-              Se encontró posible solución a las vulnerabilidades
-              Faltó comprobar que funcionara
-              Debido al acceso    
 Es es todo✍️
 
 ＼（〇_ｏ）／
