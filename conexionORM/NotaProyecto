@@ -1,0 +1,21 @@
+*Desarrollo de una conexión segura mediante un ORM*
+
+---- PROYECTO ----
+En el repositorio 
+(https://github.com/rtrevinnoc/seguridadEnBaseDeDatos)
+encontrarán el código con el servidor HTTP 
+desarrollado en FastAPI que contiene un endpoint
+vulnerable a una inyección de SQL.
+
+El objetivo de esta actividad consiste en modificar
+el script para que utilice sus credenciales personales,
+otorgar los permisos mínimos necesarios en la base de 
+datos y corregir la vulnerabilidad mediante la
+sanitización de entradas.
+
+---- Contenido ----
+Repositorio original (revisó): rtrevinnoc
+....|- Fork de (realizó): Grimaldo003
+........|-Carpeta conexionORM
+............|-Arhivo server.py con cambios respecto al endpoint /buscar
+............|-Imagen que comprueba la conexión en mi usuario creado
